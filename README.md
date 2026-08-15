@@ -117,28 +117,10 @@ fraud_detected = transactions_wm.join(
 ### 3. Decoupled ForeachBatch Alert Sinks
 Email notifications are executed through DLT `@dp.foreach_batch_sink` handlers rather than direct Spark transformation queries. Secret resolution (`dbutils.secrets.get`) takes place inside the batch execution scope to guarantee thread-safe operation on driver nodes and avoid Spark `PicklingError` exceptions.
 
----
 
-## 🔐 Security & Credentials Setup
 
-> ⚠️ **IMPORTANT:** Never commit hardcoded secret keys, passwords, or session tokens to public Git repositories.
 
-This project relies on **Databricks Secret Scopes**. Setup your secrets locally using the Databricks CLI:
 
-```bash
-# 1. Authenticate Databricks CLI
-databricks configure --token
-
-# 2. Create the Secret Scope
-databricks secrets create-scope finguard-scope
-
-# 3. Add Kafka & SMTP Credentials
-databricks secrets put-secret finguard-scope kafka_connection_details   --string-value '{"bootstrap.servers":"your-kafka-broker:9092","kafka.sasl.jaas.config":"org.apache.kafka.common.security.plain.PlainLoginModule required username="KEY" password="SECRET";"}'
-
-databricks secrets put-secret finguard-scope gmail_api_key   --string-value "your-16-character-app-password"
-```
-
----
 
 ## 🚀 Quickstart & Deployment
 
