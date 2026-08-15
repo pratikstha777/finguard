@@ -114,10 +114,6 @@ fraud_detected = transactions_wm.join(
 )
 ```
 
-### 3. Decoupled ForeachBatch Alert Sinks
-Email notifications are executed through DLT `@dp.foreach_batch_sink` handlers rather than direct Spark transformation queries. Secret resolution (`dbutils.secrets.get`) takes place inside the batch execution scope to guarantee thread-safe operation on driver nodes and avoid Spark `PicklingError` exceptions.
-
-
 
 
 
